@@ -1,0 +1,6 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.organizeImports.biome": "never", // para no organizar imports de biome, no me salga error en los archivos al importar mal
+        "source.fixAll.biome": "explicit"
+    }
+}

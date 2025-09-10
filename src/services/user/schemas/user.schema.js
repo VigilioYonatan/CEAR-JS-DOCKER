@@ -1,4 +1,16 @@
-import { coerce, email, object, string } from "@vigilio/valibot";
+import {
+    boolean,
+    coerce,
+    date,
+    email,
+    literal,
+    maxLength,
+    minLength,
+    number,
+    object,
+    string,
+    union,
+} from "@vigilio/valibot";
 
 const userSchema = object({
     id: string(),

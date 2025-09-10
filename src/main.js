@@ -1,8 +1,8 @@
+import { client } from "@vigilio/express-core/client";
 import express from "express";
+import enviroments from "./config/server/environments.config.js";
 import userRouter from "./services/user/controllers/user.controller.js";
 import webRouter from "./services/web/controllers/index.js";
-import { client } from "@vigilio/express-core/client";
-import enviroments from "./config/server/environments.config.js";
 
 const app = express();
 app.use(express.json());
