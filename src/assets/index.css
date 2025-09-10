@@ -1,0 +1,135 @@
+@import "tailwindcss";
+@plugin "tailwindcss-all";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --radius: 0.5rem;
+}
+
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+    text-align: justify;
+}
+
+a,
+button {
+    cursor: pointer;
+}
+
+@font-face {
+    font-family: "Font-Thin";
+    src: url("/fonts/Lato-Thin.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Font-Light";
+    src: url("/fonts/lato/Lato-Light.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Font-Regular";
+    src: url("/fonts/lato/Lato-Regular.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Font-Bold";
+    src: url("/fonts/lato/Lato-Bold.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Font-Black";
+    src: url("/fonts/lato/Lato-Black.ttf");
+    font-display: swap;
+}
+
+html,
+body {
+    font-family: Font-Light, sans-serif;
+    scroll-behavior: smooth;
+}
+
+a,
+button {
+    cursor: pointer;
+}
+/* @vigilio/sweet */
+.vigilio-modal {
+    font-family: sans-serif;
+}
+.vigilio-alert-container {
+    font-family: sans-serif;
+    box-shadow: 0 4px 6px 2px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.shadow-custom {
+    box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.05), 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.delay-custom-transform-1 {
+    transition: transform var(--delay-custom-transform-1) ease;
+}
+.delay-custom-1 {
+    transition: all var(--delay-custom-1) ease;
+}
+
+:root {
+    --primary: #0b95ba;
+    --primary-hover: #0e6a84;
+    --paper: #ffffff;
+    --light: #ffffff;
+}
+
+@theme {
+    --color-primary: var(--primary);
+    --color-background: var(--light);
+    --font-thin: "Font-Thin", sans-serif;
+    --font-light: "Font-Light", sans-serif;
+    --font-medium: "Font-Medium", sans-serif;
+    --font-bold: "Font-Bold", sans-serif;
+    --font-black: "Font-Black", sans-serif;
+}
+
+@keyframes animationbrightness {
+    0% {
+        transform: skewX(-25deg) translateX(-1000%);
+    }
+    50% {
+        transform: skewX(-25deg) translateX(1000%);
+    }
+    100% {
+        transform: skewX(-25deg) translateX(1000%);
+    }
+}
+.input-date-white::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Convierte el icono a blanco (invierte colores) */
+    opacity: 1; /* Asegura que sea visible */
+    cursor: pointer;
+}

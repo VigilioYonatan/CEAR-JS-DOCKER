@@ -1,0 +1,40 @@
+# .dockerignore
+
+# Ignorar node_modules (se reinstalarán dentro del contenedor)
+node_modules/
+
+# Ignorar builds y archivos compilados
+dist/
+build/
+*.js
+*.js.map
+*.d.ts
+
+# Ignorar archivos de desarrollo y testing
+.env.local
+.env.development
+.env.test
+coverage/
+*.log
+
+# Ignorar sistemas de control de versiones
+.git/
+.gitignore
+.hg/
+.svn/
+
+# Ignorar configuraciones de IDE y editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Ignorar archivos de Docker innecesarios
+docker-compose*.yml
+Dockerfile*
+
+# Ignorar archivos temporales y de sistema
+.DS_Store
+Thumbs.db
+.temp/
+tmp/

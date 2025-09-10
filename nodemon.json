@@ -1,0 +1,5 @@
+{
+    "watch": ["src", "main.js"],
+    "ext": "js,json",
+    "ignore": ["node_modules", "logs"]
+}
