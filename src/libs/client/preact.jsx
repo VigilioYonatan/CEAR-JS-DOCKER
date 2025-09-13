@@ -3,6 +3,7 @@
  */
 import { render as renderPreact } from "preact";
 import { Suspense } from "preact/compat";
+import { TextProvider } from "../../contexts/useTestContext";
 
 /**
  * Renders a Preact component with Suspense fallback into a DOM element
@@ -13,8 +14,9 @@ import { Suspense } from "preact/compat";
  */
 function Provider(el, children, fallback = null) {
     return renderPreact(
-        
-        <Suspense fallback={fallback}>{children}</Suspense>,
+        <TextProvider>
+            <Suspense fallback={fallback}>{children}</Suspense>
+        </TextProvider>,
         el
     );
 }
