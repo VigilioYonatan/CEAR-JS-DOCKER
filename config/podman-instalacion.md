@@ -51,7 +51,8 @@ pd stop iddeconrendor
 pd start iddecontenedor
 pd restart iddecontenedor
 pd exec -it iddecontenedor sh
-
+npm run dev dentor del contenedor de la aplicacion para corra vite y tambien afuera 
+ 
 pd compose down -v -- bajar el podman
 
 {# reiniciar wsl #}
