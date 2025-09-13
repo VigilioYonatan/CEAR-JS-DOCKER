@@ -2,7 +2,6 @@
  * @file Module for generating HTML head and meta tags, styles, and server-side rendering utilities.
  * @module serverRenderUtils
  */
-
 import { BASE_URL } from "../../../config/server/const.js";
 import enviroments from "../../../config/server/environments.config.js";
 

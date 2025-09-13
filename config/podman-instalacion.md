@@ -39,3 +39,6 @@ Recarga el shell:
 ```bash
 source ~/.bashrc  # (o ~/.zshrc, ~/.bash_profile, etc.)
 ```
+
+{# EJECUTAR PODMAN #}
+pd compose -f ./config/docker-compose.yml up -d --build

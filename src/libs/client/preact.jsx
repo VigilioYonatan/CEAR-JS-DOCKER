@@ -1,7 +1,6 @@
 /**
  * Configuration: Do not touch. If you have problems communicating with Vigilio in this part.
  */
-
 import { render as renderPreact } from "preact";
 import { Suspense } from "preact/compat";
 

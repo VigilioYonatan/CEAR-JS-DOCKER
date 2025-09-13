@@ -1,6 +1,7 @@
 import { lazy } from "preact/compat";
 import enviroments from "../config/client/environments.config.js";
 import { render } from "../libs/client/preact";
+import "@vigilio/sweet/sweet.min.css";
 import "../assets/index.css";
 import "vite/modulepreload-polyfill"; //https://vitejs.dev/guide/backend-integration
 

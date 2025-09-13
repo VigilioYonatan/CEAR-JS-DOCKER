@@ -1,6 +1,6 @@
 import path from "node:path";
-import enviroments from "./environments.config.js";
 import { __dirname } from "../../libs/server/helpers.js";
+import enviroments from "./environments.config.js";
 export const dirMode =
     enviroments.NODE_ENV === "production"
         ? path.resolve(__dirname, "..", "..", "..", "..")

@@ -1,13 +1,13 @@
-import { defineConfig, splitVendorChunkPlugin } from "vite";
-import dotenv from "dotenv";
 import path from "node:path";
 import preact from "@preact/preset-vite";
-import tailwindcss from '@tailwindcss/vite'
+import tailwindcss from "@tailwindcss/vite";
+import dotenv from "dotenv";
+import { defineConfig, splitVendorChunkPlugin } from "vite";
 
 dotenv.config({ path: ".env" });
 
 export default defineConfig({
-    plugins: [splitVendorChunkPlugin(), preact(),tailwindcss()],
+    plugins: [splitVendorChunkPlugin(), preact(), tailwindcss()],
     root: "src",
     resolve: {
         // RESOURCES ALIAS
@@ -23,13 +23,6 @@ export default defineConfig({
         manifest: true,
         rollupOptions: {
             input: path.resolve(__dirname, "src", "pages", "main.jsx"),
-            output: {
-                manualChunks(id) {
-                    if (id.includes("node_modules")) {
-                        return "vendor";
-                    }
-                },
-            },
         },
     },
     server: {

@@ -1,9 +1,9 @@
 import { useSignal } from "@preact/signals";
-import { useForm } from "react-hook-form";
 import {
     UserIndex,
     UserStore,
 } from "../services/user/components/user.components";
+
 function index() {
     const counter = useSignal(0);
     function handleIncrement() {
@@ -16,6 +16,7 @@ function index() {
             <button
                 class="bg-blue-500 text-white p-2 rounded-md "
                 onClick={handleIncrement}
+                type="button"
             >
                 Increment <b>{counter.value}</b>
             </button>

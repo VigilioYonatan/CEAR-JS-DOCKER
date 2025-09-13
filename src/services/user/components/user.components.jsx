@@ -1,8 +1,21 @@
+import { useQuery } from "@vigilio/preact-fetching";
+import {
+    CakeCandlesIconSolid,
+    CalendarIconSolid,
+    EnvelopeIconSolid,
+    LockIconSolid,
+    UserIconSolid,
+} from "@vigilio/react-icons";
+import { sweetModal } from "@vigilio/sweet";
 import { valibotResolver } from "@vigilio/valibot/resolver/react-hook-form";
 import { useForm } from "react-hook-form";
+import Card from "../../../components/extras/card";
+import Rerender from "../../../components/extras/rerender";
+import Form from "../../../components/form";
+import { handlerError } from "../../../libs/client/helpers";
+import { userStoreApi } from "../apis/user.api";
 import { userStoreDto } from "../dtos/user.dto";
 import { userGeneroArray } from "../libs";
-import { useQuery } from "@vigilio/preact-fetching";
 
 export function UserIndex() {
     // useQuery para meodos get y useMutation para meodos post, put, delete
@@ -20,59 +33,144 @@ export function UserIndex() {
         }
     );
 
-    if (pokeapiQuery.isLoading) return <div>Loading...</div>;
-    if (pokeapiQuery.error)
-        return <div>Error: {pokeapiQuery.error.message}</div>;
-
-    return <div>{JSON.stringify(pokeapiQuery.data)}</div>;
+    let component = null;
+    if (pokeapiQuery.isLoading) {
+        component = <div>Loading...</div>;
+    }
+    if (pokeapiQuery.error) {
+        component = <div>Error: {pokeapiQuery.error.message}</div>;
+    }
+    if (pokeapiQuery.data) {
+        component = (
+            <div className="flex flex-wrap gap-4 mx-auto justify-center items-center max-h-[500px] overflow-y-auto">
+                {pokeapiQuery.data.results.map((item, index) => (
+                    <Card className="p-4 min-w-[200px] group" key={item.name}>
+                        {index + 1}. {item.name}
+                        <img
+                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                                index + 1
+                            }.png`}
+                            alt={item.name}
+                            className="group-hover:scale-110 transition-all duration-300"
+                        />
+                    </Card>
+                ))}
+            </div>
+        );
+    }
+    return component;
 }
 
 export function UserStore() {
     // react hook form paa manejar los formularios
     // https://react-hook-form.com/get-started
 
+    const userStoreMutation = userStoreApi();
+
     const userStoreForm = useForm({
         resolver: valibotResolver(userStoreDto),
         defaultValues: {
+            // aqui puedes poner los valores por defecto
             name: "YONATHAN",
+            fecha: new Date().toISOString().split("T")[0],
         },
-        mode: "all",
+        mode: "all", // all, onBlur, onChange, onSubmit : tipo de formulario
     });
 
     // VER ERRORS
     console.log(userStoreForm.formState.errors);
+    // watch
     console.log(userStoreForm.watch("name"));
 
     function onSubmonUserStore(data) {
-        console.log(data);
-        // mutation.mutate(data,{onSuccess,onError});
+        sweetModal({
+            title: "¿Estás seguro de querer guardar los datos?",
+            showCancelButton: true,
+            showCloseButton: true,
+            isCloseInBackground: true,
+            showConfirmButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                userStoreMutation.mutate(data, {
+                    onSuccess: () => {
+                        sweetModal({
+                            title: "Datos guardados correctamente",
+                            type: "success",
+                        });
+                    },
+                    onError: (error) => {
+                        handlerError(
+                            userStoreForm,
+                            error,
+                            "No se pudo guardar los datos"
+                        );
+                    },
+                });
+            }
+        });
     }
+
     return (
-        <div>
-            <form onSubmit={userStoreForm.handleSubmit(onSubmonUserStore)}>
-                <input type="text" {...userStoreForm.register("name")} />
-                <input type="email" {...userStoreForm.register("email")} />
-                <input
-                    type="password"
-                    {...userStoreForm.register("password")}
+        <Card className="p-4 m-6 max-w-[600px] mx-auto">
+            <Rerender />
+            <h3 class="text-2xl font-bold">Formulario de Usuario</h3>
+            <Form onSubmit={onSubmonUserStore} {...userStoreForm}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Form.control
+                        ico={<UserIconSolid />}
+                        name="name"
+                        title="Nombre"
+                        required
+                    />
+                    <Form.control
+                        ico={<EnvelopeIconSolid />}
+                        name="email"
+                        title="Email"
+                        required
+                    />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Form.control
+                        ico={<LockIconSolid />}
+                        name="password"
+                        title="Contraseña"
+                    />
+                    <Form.control.select
+                        array={userGeneroArray}
+                        ico={<UserIconSolid />}
+                        name="genero"
+                        title="Género"
+                        placeholder="Selecciona un género"
+                    />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Form.control
+                        type="number"
+                        name="age"
+                        title="Edad"
+                        // obligatorio, es un numero
+                        options={{ setValueAs: Number }}
+                        ico={<CakeCandlesIconSolid />}
+                    />
+                    <Form.control
+                        type="date"
+                        name="fecha"
+                        title="Fecha"
+                        ico={<CalendarIconSolid />}
+                        min={new Date().toISOString().split("T")[0]}
+                    />
+                </div>
+                <Form.control.toggle name="estado" title="Estado" />
+                <Form.button.submit
+                    isLoading={false}
+                    disabled={false}
+                    loading_title="Guardando..."
+                    title="Guardar"
                 />
-                {userGeneroArray.map((genero) => (
-                    <div key={genero.key}>
-                        <input
-                            type="radio"
-                            {...userStoreForm.register("genero")}
-                            id={genero.key}
-                        />
-                        <label htmlFor={genero.key}>{genero.value}</label>
-                    </div>
-                ))}
-                <button
-                    className="bg-blue-500 text-white p-2 rounded-md "
-                    type="submit"
-                >
-                    Guardando..
-                </button>
-            </form>
-        </div>
+            </Form>
+            <pre class="p-4 border rounded-lg border-gray-300 mt-4 overflow-auto">
+                {JSON.stringify(userStoreForm.watch(), null, 2)}
+            </pre>
+        </Card>
     );
 }
