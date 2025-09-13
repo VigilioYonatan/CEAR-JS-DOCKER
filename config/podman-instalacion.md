@@ -41,4 +41,18 @@ source ~/.bashrc  # (o ~/.zshrc, ~/.bash_profile, etc.)
 ```
 
 {# EJECUTAR PODMAN #}
-pd compose -f ./config/docker-compose.yml up -d --build
+pd machine start ---iniciar podman
+pd compose up -d --build -- ejecutar proyecto
+pd ps -a -- ver los contenedores del proyecto
+pd image ls -- ver imagenes
+pd volume ls -- ver volumenes
+pd network ls -- ver canales
+pd stop iddeconrendor
+pd start iddecontenedor
+pd restart iddecontenedor
+pd exec -it iddecontenedor sh
+
+pd compose down -v -- bajar el podman
+
+{# reiniciar wsl #}
+wsl --shutdown

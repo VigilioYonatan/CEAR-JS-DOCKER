@@ -13,6 +13,7 @@ import { Suspense } from "preact/compat";
  */
 function Provider(el, children, fallback = null) {
     return renderPreact(
+        
         <Suspense fallback={fallback}>{children}</Suspense>,
         el
     );

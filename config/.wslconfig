@@ -1,0 +1,3 @@
+[wsl2]
+memory=20GB        # Limita la memoria RAM a 4GB
+processors=12     # Asigna 4 núcleos de CPU
