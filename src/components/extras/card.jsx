@@ -39,32 +39,33 @@ import { cn } from "../../libs/client/helpers";
  * @returns {JSX.Element}
  */
 function Card({ className, variant = "default", size = "md", ...props }) {
-    const variants = {
-        default:
-            "bg-card border border-border dark:bg-gradient-to-r dark:from-primary/10 dark:to-background",
-        elevated:
-            "bg-card border-border shadow-lg shadow-gray-400/10 dark:shadow-black/50",
-        outlined: "bg-background border-2 border-border",
-        glass: "bg-background/80 dark:bg-card/30 border border-border/50 backdrop-blur-md",
-    };
+	const variants = {
+		default:
+			"bg-card border border-border dark:bg-gradient-to-r dark:from-primary/10 dark:to-background",
+		elevated:
+			"bg-card border-border shadow-lg shadow-gray-400/10 dark:shadow-black/50",
+		outlined: "bg-background border-2 border-border",
+		glass:
+			"bg-background/80 dark:bg-card/30 border border-border/50 backdrop-blur-md",
+	};
 
-    const sizes = {
-        sm: "rounded-lg",
-        md: "rounded-xl",
-        lg: "rounded-2xl",
-    };
+	const sizes = {
+		sm: "rounded-lg",
+		md: "rounded-xl",
+		lg: "rounded-2xl",
+	};
 
-    return (
-        <div
-            className={cn(
-                "flex flex-col transition-all duration-200",
-                variants[variant],
-                sizes[size],
-                className
-            )}
-            {...props}
-        />
-    );
+	return (
+		<div
+			className={cn(
+				"flex flex-col transition-all duration-200",
+				variants[variant],
+				sizes[size],
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 /**
@@ -73,15 +74,15 @@ function Card({ className, variant = "default", size = "md", ...props }) {
  * @returns {JSX.Element}
  */
 function CardHeader({ className, ...props }) {
-    return (
-        <div
-            className={cn(
-                "flex flex-col space-y-1.5 p-4 border-b border-border",
-                className
-            )}
-            {...props}
-        />
-    );
+	return (
+		<div
+			className={cn(
+				"flex flex-col space-y-1.5 p-4 border-b border-border",
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 /**
@@ -90,16 +91,16 @@ function CardHeader({ className, ...props }) {
  * @returns {JSX.Element}
  */
 function CardTitle({ className, as = "h3", ...props }) {
-    const Component = as;
-    return (
-        <Component
-            className={cn(
-                "text-lg font-semibold leading-none tracking-tight text-foreground",
-                className
-            )}
-            {...props}
-        />
-    );
+	const Component = as;
+	return (
+		<Component
+			className={cn(
+				"text-lg font-semibold leading-none tracking-tight text-foreground",
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 /**
@@ -108,7 +109,7 @@ function CardTitle({ className, as = "h3", ...props }) {
  * @returns {JSX.Element}
  */
 function CardContent({ className, ...props }) {
-    return <div className={cn("p-4 flex-1", className)} {...props} />;
+	return <div className={cn("p-4 flex-1", className)} {...props} />;
 }
 
 /**
@@ -117,15 +118,12 @@ function CardContent({ className, ...props }) {
  * @returns {JSX.Element}
  */
 function CardFooter({ className, ...props }) {
-    return (
-        <div
-            className={cn(
-                "flex items-center p-4 border-t border-border",
-                className
-            )}
-            {...props}
-        />
-    );
+	return (
+		<div
+			className={cn("flex items-center p-4 border-t border-border", className)}
+			{...props}
+		/>
+	);
 }
 
 // Attach subcomponents to Card

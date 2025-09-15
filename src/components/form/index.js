@@ -18,32 +18,32 @@ import FormToggle from "./FormToggle";
  * @returns {any} - Objeto anidado accedido mediante las claves.
  */
 export function anidarPropiedades(obj, keysArray) {
-    /** @type {any} */
-    let currentObj = obj;
-    for (let i = 0; i < keysArray.length; i++) {
-        const key = keysArray[i];
-        // Comprueba si la propiedad existe directamente en el objeto
-        if (!Object.hasOwn(currentObj, key)) {
-            currentObj[key] = {};
-        }
-        currentObj = currentObj[key];
-    }
-    return currentObj;
+	/** @type {any} */
+	let currentObj = obj;
+	for (let i = 0; i < keysArray.length; i++) {
+		const key = keysArray[i];
+		// Comprueba si la propiedad existe directamente en el objeto
+		if (!Object.hasOwn(currentObj, key)) {
+			currentObj[key] = {};
+		}
+		currentObj = currentObj[key];
+	}
+	return currentObj;
 }
 
 /**
  * Componente Form principal con componentes auxiliares anidados.
  */
 const Form = Object.assign(VigilioForm, {
-    control: Object.assign(FormControl, {
-        toggle: FormToggle,
-        select: FormSelect,
-        area: FormControlArea,
-        array: FormArray,
-        selectInput: FormSelectInput,
-        color: FormColor,
-    }),
-    button: { submit: FormButtonSubmit },
+	control: Object.assign(FormControl, {
+		toggle: FormToggle,
+		select: FormSelect,
+		area: FormControlArea,
+		array: FormArray,
+		selectInput: FormSelectInput,
+		color: FormColor,
+	}),
+	button: { submit: FormButtonSubmit },
 });
 
 export default Form;

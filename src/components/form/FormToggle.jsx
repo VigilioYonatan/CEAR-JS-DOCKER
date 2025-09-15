@@ -1,7 +1,7 @@
 import {
-    EyeIconLight,
-    EyeSlashIconLight,
-    QuestionIconLight,
+	EyeIconLight,
+	EyeSlashIconLight,
+	QuestionIconLight,
 } from "@vigilio/react-icons/fontawesome";
 import { useContext } from "preact/hooks";
 import { sizeIcon } from "../../libs/client/helpers";
@@ -27,104 +27,99 @@ import { FormControlContext } from "./Form";
  * @returns {JSX.Element}
  */
 function FormToggle({
-    name,
-    title,
-    question,
-    isEye = false,
-    required = false,
-    ...rest
+	name,
+	title,
+	question,
+	isEye = false,
+	required = false,
+	...rest
 }) {
-    const {
-        register,
-        formState: { errors },
-        watch,
-        setValue,
-    } = useContext(FormControlContext);
+	const {
+		register,
+		formState: { errors },
+		watch,
+		setValue,
+	} = useContext(FormControlContext);
 
-    const value = watch(name);
+	const value = watch(name);
 
-    const err = anidarPropiedades(errors, name.split("."));
-    const nameId = `${name}-${Date.now()}`;
+	const err = anidarPropiedades(errors, name.split("."));
+	const nameId = `${name}-${Date.now()}`;
 
-    const toggleValue = () => {
-        setValue(name, !value);
-    };
+	const toggleValue = () => {
+		setValue(name, !value);
+	};
 
-    return (
-        <div className="w-full mb-2 space-y-2">
-            <label
-                className="block text-sm font-medium text-foreground"
-                htmlFor={nameId}
-            >
-                {title}
-                {required ? <span className="text-primary">*</span> : ""}
-            </label>
-            <div className="flex items-center gap-2">
-                <div className="w-full h-[2.5rem] flex items-center gap-2 text-xs rounded-lg overflow-hidden text-secondary-dark bg-paper-light my-1">
-                    {isEye ? (
-                        <button
-                            type="button"
-                            onClick={toggleValue}
-                            className="p-2 focus:outline-none"
-                            aria-label={value ? "Ocultar" : "Mostrar"}
-                        >
-                            {value ? (
-                                <EyeIconLight
-                                    {...sizeIcon.large}
-                                    className="text-primary"
-                                />
-                            ) : (
-                                <EyeSlashIconLight
-                                    {...sizeIcon.large}
-                                    className="text-gray-500"
-                                />
-                            )}
-                        </button>
-                    ) : (
-                        <>
-                            <input
-                                type="checkbox"
-                                id={nameId}
-                                {...rest}
-                                checked={value}
-                                {...register(name)}
-                                className="hidden"
-                            />
-                            <label
-                                htmlFor={nameId}
-                                className={`relative inline-flex items-center cursor-pointer w-[4rem] h-8 rounded-full transition-all duration-300 ${
-                                    value ? "bg-primary" : "bg-gray-300"
-                                }`}
-                            >
-                                <span
-                                    className={`absolute block w-8 h-8 bg-white rounded-full transition-transform duration-300 transform ${
-                                        value
-                                            ? "translate-x-6"
-                                            : "translate-x-0"
-                                    }`}
-                                />
-                            </label>
-                        </>
-                    )}
-                </div>
+	return (
+		<div className="w-full mb-2 space-y-2">
+			<label
+				className="block text-sm font-medium text-foreground"
+				htmlFor={nameId}
+			>
+				{title}
+				{required ? <span className="text-primary">*</span> : ""}
+			</label>
+			<div className="flex items-center gap-2">
+				<div className="w-full h-[2.5rem] flex items-center gap-2 text-xs rounded-lg overflow-hidden text-secondary-dark bg-paper-light my-1">
+					{isEye ? (
+						<button
+							type="button"
+							onClick={toggleValue}
+							className="p-2 focus:outline-none"
+							aria-label={value ? "Ocultar" : "Mostrar"}
+						>
+							{value ? (
+								<EyeIconLight {...sizeIcon.large} className="text-primary" />
+							) : (
+								<EyeSlashIconLight
+									{...sizeIcon.large}
+									className="text-gray-500"
+								/>
+							)}
+						</button>
+					) : (
+						<>
+							<input
+								type="checkbox"
+								id={nameId}
+								{...rest}
+								checked={value}
+								{...register(name)}
+								className="hidden"
+							/>
+							<label
+								htmlFor={nameId}
+								className={`relative inline-flex items-center cursor-pointer w-[4rem] h-8 rounded-full transition-all duration-300 ${
+									value ? "bg-primary" : "bg-gray-300"
+								}`}
+							>
+								<span
+									className={`absolute block w-8 h-8 bg-white rounded-full transition-transform duration-300 transform ${
+										value ? "translate-x-6" : "translate-x-0"
+									}`}
+								/>
+							</label>
+						</>
+					)}
+				</div>
 
-                {question ? (
-                    <div className="relative group">
-                        <div className="rounded-full shadow-lg p-1 bg-primary fill-white">
-                            <QuestionIconLight className="w-[12px] h-[12px]" />
-                        </div>
-                        <div className="shadow-xl text-xs min-w-[100px] hidden group-hover:block -top-[35px] right-1 p-1 text-center absolute rounded-md bg-white z-10 font-semibold text-black">
-                            {question}
-                        </div>
-                    </div>
-                ) : null}
-            </div>
+				{question ? (
+					<div className="relative group">
+						<div className="rounded-full shadow-lg p-1 bg-primary fill-white">
+							<QuestionIconLight className="w-[12px] h-[12px]" />
+						</div>
+						<div className="shadow-xl text-xs min-w-[100px] hidden group-hover:block -top-[35px] right-1 p-1 text-center absolute rounded-md bg-white z-10 font-semibold text-black">
+							{question}
+						</div>
+					</div>
+				) : null}
+			</div>
 
-            {Object.keys(err).length ? (
-                <p className="text-xs text-red-600">{err.message}</p>
-            ) : null}
-        </div>
-    );
+			{Object.keys(err).length ? (
+				<p className="text-xs text-red-600">{err.message}</p>
+			) : null}
+		</div>
+	);
 }
 
 /**
@@ -143,77 +138,75 @@ function FormToggle({
  * @returns {JSX.Element}
  */
 export function FormToggleCustom({
-    title,
-    value,
-    index,
-    onChange,
-    isEye = false,
+	title,
+	value,
+	index,
+	onChange,
+	isEye = false,
 }) {
-    const nameId = `${title}-${index ?? Date.now()}`;
+	const nameId = `${title}-${index ?? Date.now()}`;
 
-    const toggleValue = () => {
-        const newValue = !value.value;
-        value.value = newValue;
-        if (onChange) {
-            onChange(newValue);
-        }
-    };
+	const toggleValue = () => {
+		const newValue = !value.value;
+		value.value = newValue;
+		if (onChange) {
+			onChange(newValue);
+		}
+	};
 
-    return (
-        <div className="w-full mb-2">
-            <label
-                className="text-sm text-secondary-dark capitalize font-bold"
-                htmlFor={nameId}
-            >
-                {title}
-            </label>
-            <div className="flex items-center gap-2">
-                <div className="w-full h-[2.5rem] flex items-center gap-2 text-xs rounded-lg overflow-hidden text-secondary-dark bg-paper-light my-1">
-                    {isEye ? (
-                        <button
-                            type="button"
-                            onClick={toggleValue}
-                            className="p-2 focus:outline-none"
-                            aria-label={value.value ? "Ocultar" : "Mostrar"}
-                        >
-                            {value.value ? (
-                                <EyeIconLight className="w-5 h-5 text-primary" />
-                            ) : (
-                                <EyeSlashIconLight className="w-5 h-5 text-gray-500" />
-                            )}
-                        </button>
-                    ) : (
-                        <>
-                            <input
-                                type="checkbox"
-                                id={nameId}
-                                checked={value.value}
-                                className="hidden"
-                                onChange={(e) => {
-                                    value.value = e.target.checked;
-                                    if (onChange) onChange(value.value);
-                                }}
-                            />
-                            <label
-                                htmlFor={nameId}
-                                className={`relative inline-flex items-center cursor-pointer w-[4rem] h-8 rounded-full transition-all duration-300 ${
-                                    value.value ? "bg-primary" : "bg-gray-300"
-                                }`}
-                            >
-                                <span
-                                    className={`absolute block w-8 h-8 bg-white rounded-full transition-transform duration-300 transform ${
-                                        value.value
-                                            ? "translate-x-6"
-                                            : "translate-x-0"
-                                    }`}
-                                />
-                            </label>
-                        </>
-                    )}
-                </div>
-            </div>
-        </div>
-    );
+	return (
+		<div className="w-full mb-2">
+			<label
+				className="text-sm text-secondary-dark capitalize font-bold"
+				htmlFor={nameId}
+			>
+				{title}
+			</label>
+			<div className="flex items-center gap-2">
+				<div className="w-full h-[2.5rem] flex items-center gap-2 text-xs rounded-lg overflow-hidden text-secondary-dark bg-paper-light my-1">
+					{isEye ? (
+						<button
+							type="button"
+							onClick={toggleValue}
+							className="p-2 focus:outline-none"
+							aria-label={value.value ? "Ocultar" : "Mostrar"}
+						>
+							{value.value ? (
+								<EyeIconLight className="w-5 h-5 text-primary" />
+							) : (
+								<EyeSlashIconLight className="w-5 h-5 text-gray-500" />
+							)}
+						</button>
+					) : (
+						<>
+							<input
+								type="checkbox"
+								id={nameId}
+								checked={value.value}
+								className="hidden"
+								onChange={(e) => {
+									value.value = e.target.checked;
+									if (onChange) onChange(value.value);
+								}}
+							/>
+							<label
+								htmlFor={nameId}
+								className={`relative inline-flex items-center cursor-pointer w-[4rem] h-8 rounded-full transition-all duration-300 ${
+									value.value ? "bg-primary" : "bg-gray-300"
+								}`}
+							>
+								<span
+									className={`absolute block w-8 h-8 bg-white rounded-full transition-transform duration-300 transform ${
+										value.value ? "translate-x-6" : "translate-x-0"
+									}`}
+								/>
+							</label>
+						</>
+					)}
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default FormToggle;

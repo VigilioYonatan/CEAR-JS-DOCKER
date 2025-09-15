@@ -9,7 +9,7 @@ services:
             target: development
         restart: unless-stopped
         ports:
-            - ${PORT}:${PORT}
+            - "${PORT}:${PORT}"
         environment:
             - NODE_ENV=${NODE_ENV}
             - PORT=${PORT}
@@ -30,13 +30,13 @@ services:
     postgres:
         image: postgres:17.6-alpine3.21
         container_name: ${DB_NAME}
-        restart: unless-stopped
+        restart: always
         environment:
             POSTGRES_USER: ${DB_USER}
             POSTGRES_PASSWORD: ${DB_PASS}
             POSTGRES_DB: ${DB_NAME}
         ports:
-            - ${DB_PORT}:5432
+            - "${DB_PORT}:5432"
         volumes:
             - postgres_data:/var/lib/postgresql/data
         networks:

@@ -1,11 +1,13 @@
-import { safeParseAsync } from "@vigilio/valibot/dist/cjs/methods/safeParse/index.js";
+import { safeParse } from "@vigilio/valibot";
 
 // validar el body con valibot req.body
 export function ValidatorValibot(schema) {
     return async (req, res, next) => {
+        console.log({ body: req.body });
+
         const schemaConverter =
             typeof schema === "function" ? schema(req, res) : schema;
-        const data = await safeParseAsync(schemaConverter, req.body);
+        const data = await safeParse(schemaConverter, req.body);
         if (!data.success) {
             let message = null;
             try {
@@ -23,7 +25,8 @@ export function ValidatorValibot(schema) {
                     : data.issues[0].validation,
             });
         }
-        req.body = data.data;
+        console.log({ data });
+        req.body = data.output;
         next();
     };
 }

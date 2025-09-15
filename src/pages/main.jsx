@@ -7,25 +7,25 @@ import "vite/modulepreload-polyfill"; //https://vitejs.dev/guide/backend-integra
 
 // render all jsx files
 for (const [path, importFn] of Object.entries(
-    import.meta.glob(
-        [
-            "./**/*.jsx",
-            // "!./**/admin/**/*.tsx",
-            "!./components/**/*.jsx",
-        ],
-        {
-            eager: false,
-        }
-    )
+	import.meta.glob(
+		[
+			"./**/*.jsx",
+			// "!./**/admin/**/*.tsx",
+			"!./components/**/*.jsx",
+		],
+		{
+			eager: false,
+		},
+	),
 )) {
-    render(
-        path.slice(1),
-        lazy(() =>
-            enviroments.VITE_ENV === "production"
-                ? importFn().then((module) => ({
-                      default: module.default,
-                  }))
-                : import(/* @vite-ignore */ path)
-        )
-    );
+	render(
+		path.slice(1),
+		lazy(() =>
+			enviroments.VITE_ENV === "production"
+				? importFn().then((module) => ({
+						default: module.default,
+					}))
+				: import(/* @vite-ignore */ path),
+		),
+	);
 }

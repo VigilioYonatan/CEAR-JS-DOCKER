@@ -20,19 +20,19 @@ import enviroments from "../../../config/server/environments.config.js";
  * @returns {Promise<string>} HTML string containing meta tags
  */
 export async function Header({
-    title,
-    description = "Centro de Arbitraje e Investigaciones Jurídicas. Especialistas en arbitraje con contrataciones públicas, arbitrajes de emergencias y Junta de Resolución de disputas.",
+	title,
+	description = "Centro de Arbitraje e Investigaciones Jurídicas. Especialistas en arbitraje con contrataciones públicas, arbitrajes de emergencias y Junta de Resolución de disputas.",
 }) {
-    const logo = `${BASE_URL()}/images/favicon.webp`;
+	const logo = `${BASE_URL()}/images/favicon.webp`;
 
-    const seo = {
-        title,
-        description,
-        keywords:
-            "arbitraje, arbitraje en contrataciones públicas, arbitraje con el estado, arbitraje de emergencia, normativa contratación pública Perú, disputas contractuales, resolución de controversias, junta de resolución de disputas, dispute boards",
-    };
+	const seo = {
+		title,
+		description,
+		keywords:
+			"arbitraje, arbitraje en contrataciones públicas, arbitraje con el estado, arbitraje de emergencia, normativa contratación pública Perú, disputas contractuales, resolución de controversias, junta de resolución de disputas, dispute boards",
+	};
 
-    return `
+	return `
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${seo.title}</title>
@@ -69,7 +69,7 @@ export async function Header({
  * @returns {string} CSS style tag with Tailwind variables
  */
 export function tailwind(color_primary) {
-    return `
+	return `
      <!-- los primarios son --primary y --primary-foreground -->
         <!-- accent y accent-foreground -->
         <style type="text/css">
@@ -139,7 +139,7 @@ export function tailwind(color_primary) {
  * @returns {string} El string con las comillas dobles escapadas.
  */
 export function escapeQuotes(str) {
-    return str.replace(/"/g, '\\"');
+	return str.replace(/"/g, '\\"');
 }
 
 /**
@@ -150,11 +150,11 @@ export function escapeQuotes(str) {
  * @returns {string} El string escapado para usar como atributo HTML.
  */
 export function escapeForHtmlAttribute(json) {
-    return json
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&apos;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+	return json
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&apos;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;");
 }
 
 /**
@@ -164,14 +164,14 @@ export function escapeForHtmlAttribute(json) {
  * @returns {string} Un string con las propiedades formateadas como atributos HTML.
  */
 export function propsToString(props) {
-    return Object.entries(props)
-        .map(([key, value]) => {
-            if (typeof value === "string") {
-                return `${key}="${escapeQuotes(value)}"`; // escape de comillas
-            }
-            return `:${key}="${escapeForHtmlAttribute(JSON.stringify(value))}"`;
-        })
-        .join(" ");
+	return Object.entries(props)
+		.map(([key, value]) => {
+			if (typeof value === "string") {
+				return `${key}="${escapeQuotes(value)}"`; // escape de comillas
+			}
+			return `:${key}="${escapeForHtmlAttribute(JSON.stringify(value))}"`;
+		})
+		.join(" ");
 }
 
 /**
@@ -185,56 +185,56 @@ export function propsToString(props) {
  * @returns {(req: RequestCEAR, res: Response) => Promise<void>} Middleware Express-like que renderiza la respuesta HTML.
  */
 export function render(props) {
-    return async (req, res) => {
-        /**
-         * Formatea la ruta para generar el nombre del componente.
-         *
-         * @param {string} routePath - Ruta original de Express.
-         * @returns {string} Nombre formateado del componente a renderizar.
-         */
-        function formatPath(routePath) {
-            let formatted = routePath.startsWith("/")
-                ? routePath.slice(1)
-                : routePath;
+	return async (req, res) => {
+		/**
+		 * Formatea la ruta para generar el nombre del componente.
+		 *
+		 * @param {string} routePath - Ruta original de Express.
+		 * @returns {string} Nombre formateado del componente a renderizar.
+		 */
+		function formatPath(routePath) {
+			let formatted = routePath.startsWith("/")
+				? routePath.slice(1)
+				: routePath;
 
-            formatted = !Number.isNaN(Number(formatted[0]))
-                ? `page-${formatted.replace("*", "")}`
-                : formatted.startsWith(":")
-                ? `page-${formatted.slice(1).replace("*", "")}`
-                : formatted.replace("*", "");
+			formatted = !Number.isNaN(Number(formatted[0]))
+				? `page-${formatted.replace("*", "")}`
+				: formatted.startsWith(":")
+					? `page-${formatted.slice(1).replace("*", "")}`
+					: formatted.replace("*", "");
 
-            if (formatted === "") return "index";
-            const segments = formatted.split("/");
-            const processedSegments = segments.map((segment) => {
-                if (segment.startsWith(":")) {
-                    return `[${segment.slice(1)}]`;
-                }
-                return segment;
-            });
-            formatted = processedSegments.join("-");
-            if (!formatted.endsWith("]")) {
-                formatted += "-index";
-            }
-            return formatted;
-        }
+			if (formatted === "") return "index";
+			const segments = formatted.split("/");
+			const processedSegments = segments.map((segment) => {
+				if (segment.startsWith(":")) {
+					return `[${segment.slice(1)}]`;
+				}
+				return segment;
+			});
+			formatted = processedSegments.join("-");
+			if (!formatted.endsWith("]")) {
+				formatted += "-index";
+			}
+			return formatted;
+		}
 
-        let pathJs = formatPath(req.route.path.toLowerCase());
-        pathJs = pathJs === "admin*-index" ? "app-index" : pathJs;
+		let pathJs = formatPath(req.route.path.toLowerCase());
+		pathJs = pathJs === "admin*-index" ? "app-index" : pathJs;
 
-        // Carga global para mejor performance
-        props.props = {
-            ...(props.props || {}),
-            clase_types: req.clase_types,
-            actividades_types: req.actividades_types,
-            empresa: req.empresa,
-            novedad_categories: req.novedad_categories,
-            novedad_types: req.novedad_types,
-            novedad: req.novedad,
-            usuario: req.user,
-            curso_types: req.curso_types,
-        };
+		// Carga global para mejor performance
+		props.props = {
+			...(props.props || {}),
+			clase_types: req.clase_types,
+			actividades_types: req.actividades_types,
+			empresa: req.empresa,
+			novedad_categories: req.novedad_categories,
+			novedad_types: req.novedad_types,
+			novedad: req.novedad,
+			usuario: req.user,
+			curso_types: req.curso_types,
+		};
 
-        return res.send(`
+		return res.send(`
             <!DOCTYPE html>
             <html lang="${props.lang || "es"}">
                 <head>
@@ -245,9 +245,9 @@ export function render(props) {
                 <body class="bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 ">
                     <${pathJs}></${pathJs}>
                     <script>window.props = ${JSON.stringify(
-                        props.props || {}
-                    )};</script>
+											props.props || {},
+										)};</script>
                 </body>
             </html>`);
-    };
+	};
 }

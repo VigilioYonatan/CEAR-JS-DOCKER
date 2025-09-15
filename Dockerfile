@@ -5,7 +5,7 @@
   # ---------- Dependencies ----------
   FROM base AS dependencies
   COPY /package*.json ./
-  RUN npm install
+  RUN npm install --force
   
   # ---------- Development ----------
   FROM base AS development

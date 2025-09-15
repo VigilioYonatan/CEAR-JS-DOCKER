@@ -7,40 +7,40 @@ import { useEffect, useState } from "preact/hooks";
  * @returns {boolean} Verdadero si coincide el media query.
  */
 function useMediaQuery(query) {
-    const getMatches = (query) => {
-        if (typeof window !== "undefined") {
-            return window.matchMedia(query).matches;
-        }
-        return false;
-    };
+	const getMatches = (query) => {
+		if (typeof window !== "undefined") {
+			return window.matchMedia(query).matches;
+		}
+		return false;
+	};
 
-    const [matches, setMatches] = useState(getMatches(query));
+	const [matches, setMatches] = useState(getMatches(query));
 
-    function handleChange() {
-        setMatches(getMatches(query));
-    }
+	function handleChange() {
+		setMatches(getMatches(query));
+	}
 
-    useEffect(() => {
-        const matchMedia = window.matchMedia(query);
+	useEffect(() => {
+		const matchMedia = window.matchMedia(query);
 
-        handleChange(); // Ejecutar al montar
+		handleChange(); // Ejecutar al montar
 
-        if (matchMedia.addListener) {
-            matchMedia.addListener(handleChange);
-        } else {
-            matchMedia.addEventListener("change", handleChange);
-        }
+		if (matchMedia.addListener) {
+			matchMedia.addListener(handleChange);
+		} else {
+			matchMedia.addEventListener("change", handleChange);
+		}
 
-        return () => {
-            if (matchMedia.removeListener) {
-                matchMedia.removeListener(handleChange);
-            } else {
-                matchMedia.removeEventListener("change", handleChange);
-            }
-        };
-    }, [query]);
+		return () => {
+			if (matchMedia.removeListener) {
+				matchMedia.removeListener(handleChange);
+			} else {
+				matchMedia.removeEventListener("change", handleChange);
+			}
+		};
+	}, [query]);
 
-    return matches;
+	return matches;
 }
 
 /**
@@ -59,20 +59,20 @@ function useMediaQuery(query) {
  * @returns {string|number}
  */
 export function useMedia(props) {
-    const mobile = useMediaQuery("(min-width: 400px)");
-    const minitablet = useMediaQuery("(min-width: 550px)");
-    const tablet = useMediaQuery("(min-width: 750px)");
-    const laptop = useMediaQuery("(min-width: 1150px)");
+	const mobile = useMediaQuery("(min-width: 400px)");
+	const minitablet = useMediaQuery("(min-width: 550px)");
+	const tablet = useMediaQuery("(min-width: 750px)");
+	const laptop = useMediaQuery("(min-width: 1150px)");
 
-    return laptop
-        ? props.laptop
-        : tablet
-        ? props.tablet
-        : minitablet
-        ? props.minitablet
-        : mobile
-        ? props.mobile
-        : props.custom;
+	return laptop
+		? props.laptop
+		: tablet
+			? props.tablet
+			: minitablet
+				? props.minitablet
+				: mobile
+					? props.mobile
+					: props.custom;
 }
 
 /**
@@ -82,8 +82,8 @@ export function useMedia(props) {
  * @returns {boolean}
  */
 export function useMediaQueryNoReactive(query) {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia(query).matches;
+	if (typeof window === "undefined") return false;
+	return window.matchMedia(query).matches;
 }
 
 export default useMediaQuery;

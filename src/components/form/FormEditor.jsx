@@ -83,7 +83,7 @@ function FormEditor({
                         onEditorChange={(content) => {
                             setValue?.(name, content);
                         }}
-                        onBlur={(event, editor) => {
+                        onBlur={(_, editor) => {
                             if (onBlur) {
                                 onBlur(editor.getContent());
                             }

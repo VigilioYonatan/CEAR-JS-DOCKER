@@ -5,7 +5,7 @@ import { createContext } from "preact";
  * @type {import('preact').Context<import('react-hook-form').UseFormReturn<any, unknown, import('react-hook-form').FieldValues>>}
  */
 export const FormControlContext = createContext(
-    /** @type {import('react-hook-form').UseFormReturn<any, unknown, import('react-hook-form').FieldValues>} */ ({})
+	/** @type {import('react-hook-form').UseFormReturn<any, unknown, import('react-hook-form').FieldValues>} */ ({}),
 );
 
 /**
@@ -24,24 +24,24 @@ export const FormControlContext = createContext(
  * @param {FormProps<T>} props
  */
 function Form({
-    children,
-    onSubmit,
-    className = "w-full flex flex-col gap-4",
-    ...rest
+	children,
+	onSubmit,
+	className = "w-full flex flex-col gap-4",
+	...rest
 }) {
-    return (
-        // Pasamos todos los métodos de react-hook-form como valor del contexto.
-        <FormControlContext.Provider value={rest}>
-            <form
-                noValidate
-                onSubmit={rest.handleSubmit(onSubmit)}
-                className={className}
-                autoComplete="off"
-            >
-                {children}
-            </form>
-        </FormControlContext.Provider>
-    );
+	return (
+		// Pasamos todos los métodos de react-hook-form como valor del contexto.
+		<FormControlContext.Provider value={rest}>
+			<form
+				noValidate
+				onSubmit={rest.handleSubmit(onSubmit)}
+				className={className}
+				autoComplete="off"
+			>
+				{children}
+			</form>
+		</FormControlContext.Provider>
+	);
 }
 
 export default Form;

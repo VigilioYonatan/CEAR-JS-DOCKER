@@ -12,10 +12,10 @@
  * @returns {JSX.Element}
  */
 function Loader({ width = 20, height = 20, color = "white" }) {
-    return (
-        <>
-            <span className="loader" />
-            <style jsx>{`
+	return (
+		<>
+			<span className="loader" />
+			<style jsx>{`
                 .loader {
                     width: ${width}px;
                     height: ${height}px;
@@ -35,8 +35,8 @@ function Loader({ width = 20, height = 20, color = "white" }) {
                     }
                 }
             `}</style>
-        </>
-    );
+		</>
+	);
 }
 
 export default Loader;

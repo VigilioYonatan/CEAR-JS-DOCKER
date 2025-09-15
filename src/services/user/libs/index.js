@@ -1,10 +1,10 @@
 export const userGeneroArray = [
-    {
-        key: "masculino",
-        value: "Masculino",
-    },
-    {
-        key: "femenino",
-        value: "Femenino",
-    },
+	{
+		key: "masculino",
+		value: "Masculino",
+	},
+	{
+		key: "femenino",
+		value: "Femenino",
+	},
 ];
