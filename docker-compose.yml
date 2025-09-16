@@ -24,7 +24,13 @@ services:
             - ./:/usr/src/app
             - /usr/src/app/node_modules
         networks:
-            - app-network
+            - dokploy-network
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.${NODE_APP}.rule=Host(`cearlat.161.132.50.70`)
+            - traefik.http.routers.${NODE_APP}.entrypoints=websecure
+            - traefik.http.routers.${NODE_APP}.tls.certResolver=letsencrypt
+            - traefik.http.services.${NODE_APP}.loadbalancer.server.port=${PORT}
 
     # PostgreSQL Database
     postgres:
@@ -40,11 +46,11 @@ services:
         volumes:
             - postgres_data:/var/lib/postgresql/data
         networks:
-            - app-network
+            - dokploy-network
 
 volumes:
     postgres_data:
 
 networks:
-    app-network:
+    dokploy-network:
         driver: bridge
